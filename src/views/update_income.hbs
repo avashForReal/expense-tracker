@@ -1,0 +1,57 @@
+{{#if income}}
+<p>Update income</p>
+
+<div>
+    <div>
+        {{#if errors}}
+        {{#each errors}}
+        {{#each this}}
+        <p style="color: firebrick;">{{this}}</p>
+        {{/each}}
+        {{/each}}
+        {{/if}}
+    </div>
+
+    <form action="/incomes/edit/{{income.id}}" method="POST" role="form">
+        <p>
+            <label for="incomeSource">Income Source:</label><br>
+            <input type="text" value="{{income.incomeSource}}" name="incomeSource" id="incomeSource" placeholder="Income name..." />
+        </p>
+
+        {{!-- map all income categories --}}
+        <p>
+            <label for="incomeCategory">Income Category:</label><br>
+            <select name="incomeCategory" id="incomeCategory" placeholder="Income category...">
+                <option disabled="true" selected="true">Select a category</option>
+                {{#each income_category}}
+                <option value={{this.id}}>{{this.category}}</option>
+                {{/each}}
+            </select>
+            {{!-- <input type="text" name="incomeCategory" id="incomeCategory" placeholder="Income category..." /> --}}
+        </p>
+
+        <p>
+            <label for="incomeAmount">Income Amount:</label><br>
+            <input type="number" value="{{income.incomeAmount}}" step="0.0001" name="incomeAmount" id="incomeAmount" placeholder="Income amount..." />
+        </p>
+
+        <p>
+            <label for="incomeDescription">Income Description:</label><br>
+            <input type="text" value="{{income.incomeDescription}}" name="incomeDescription" id="incomeDescription" placeholder="Income description..." />
+        </p>
+
+
+        <p>
+            <label for="incomeDate">Income Date:</label><br>
+            <input type="date" value="{{income.incomeDate}}" name="incomeDate" id="incomeDate" placeholder="Income date..." />
+        </p>
+
+        <button type="submit">
+            Update income
+        </button>
+    </form>
+</div>
+
+{{else}}
+Income not found.
+{{/if}}

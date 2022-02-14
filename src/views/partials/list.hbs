@@ -1,0 +1,11 @@
+<ol>
+    {{#each list_data}}
+    {{!-- <li>{{this.name}}</li> --}}
+    <li>
+        {{this.category}}
+        <a href="/{{../list_for}}/edit/{{this.id}}" style="margin:0 5px; cursor: pointer;">edit</a>
+        <a href="/{{../list_for}}/delete/{{this.id}}" style="margin:0 5px; cursor: pointer; color: firebrick;">delete</a>
+    </li>
+
+    {{/each}}
+</ol>

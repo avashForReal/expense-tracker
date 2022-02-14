@@ -1,0 +1,28 @@
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>{{table_heading}}</th>
+      <th>Category</th>
+      <th>Amount</th>
+      <th>Description</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {{#each data}}
+    <tr>
+      {{#each this}}
+      {{#if this}}
+      <td>{{this}}</td>
+      {{else}}
+      <td style="font-size: small;"><i>no category</i></td>
+      {{/if}}
+      {{/each}}
+      <td><a href="/{{../table_for}}/edit/{{this.id}}" style="cursor: pointer;">edit</a></td>
+      <td><a href="/{{../table_for}}/delete/{{this.id}}" style="cursor: pointer; color: firebrick;">delete</a></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

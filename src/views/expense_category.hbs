@@ -1,0 +1,37 @@
+<h1>Expense Categories</h1>
+{{#if message}}
+<p style="color: springgreen;">
+    {{message}}
+</p>
+{{/if}}
+
+
+{{#if expense_category}}
+<p>expense categories:</p>
+
+{{!-- call partial with data --}}
+{{!-- like react props --}}
+
+{{> list list_data=expense_category list_for="expense-category" }}
+
+{{else}}
+<p>No categories found, please add a category!</p>
+{{/if}}
+
+<hr />
+
+<form action="/expense-category" method="POST" role="form">
+    <p>
+        <label for="category">Expense Category:</label><br>
+        <input type="text" name="category" id="category" placeholder="Category..." />
+        {{#if errors}}
+        <p style="color: firebrick;">
+            {{errors.[0].category}}
+        </p>
+        {{/if}}
+    </p>
+
+    <button type="submit">
+        Add expense category
+    </button>
+</form>
