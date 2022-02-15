@@ -1,14 +1,13 @@
 const incomesController = require("../controllers/incomes.controller")
 const expensesController = require("../controllers/expenses.controller")
-// const expenseCategoryController = require("../controllers/expense_category.controllers")
-// const incomeCategoryController = require("../controllers/income_category.controllers")
 const { calcExpense, calcIncome } = require("../utils/calcTotal")
 
 // home index
 const index = async (req, res) => {
     try {
-        const allIncomes = await incomesController.getAll()
-        const allExpenses = await expensesController.getAll()
+        const userId = req.user.id
+        const allIncomes = await incomesController.getAll(userId)
+        const allExpenses = await expensesController.getAll(userId)
 
         const totalIncomeAmount = calcIncome(allIncomes)
         const totalExpenseAmount = calcExpense(allExpenses)

@@ -1,23 +1,30 @@
-{{#if expense_category}}
-<p>Update expense category</p>
+<header style="padding-bottom: 0;">
+    {{>nav_bar}}
+</header>
+
+<main>
+    {{#if expense_category}}
+    <p>Update expense category</p>
 
 
-<form action="/expense-category/edit/{{expense_category.id}}" method="POST" role="form">
-    <div>
-        <label for="category">Expense Category:</label><br>
-        <input type="text" value="{{expense_category.category}}" name="category" id="category" placeholder="Category..." />
-        {{#if errors}}
-        <p style="color: firebrick;">
-            {{errors.[0].category}}
-        </p>
-        {{/if}}
-    </div>
+    <form action="/expense-category/edit/{{expense_category.id}}" method="POST" role="form">
+        <div>
+            <label for="category">Expense Category:</label><br>
+            <input type="text" value="{{expense_category.category}}" name="category" id="category"
+                placeholder="Category..." />
+            {{#if errors}}
+            <p style="color: firebrick;">
+                {{errors.[0].category}}
+            </p>
+            {{/if}}
+        </div>
 
-    <button type="submit">
-        Update expense category
-    </button>
-</form>
+        <button type="submit">
+            Update expense category
+        </button>
+    </form>
 
-{{else}}
-Category not found.
-{{/if}}
+    {{else}}
+    Category not found.
+    {{/if}}
+</main>

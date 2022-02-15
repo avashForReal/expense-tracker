@@ -15,15 +15,18 @@ const {
     validate
 } = require("../middlewares/validator")
 
+const {checkAuth} = require("../middlewares/auth.middlewares")
+
+
 router.route('/')
-    .get(index) //get all income categories
-    .post(newCategoryValidationRules(),validate,createOne,index) //add a income category
+    .get(checkAuth("admin"),index) //get all income categories
+    .post(checkAuth("admin"),newCategoryValidationRules(),validate,createOne,index) //add a income category
 
 router.route("/delete/:id")
-    .get(deleteOne) //delete one income category
+    .get(checkAuth("admin"),deleteOne) //delete one income category
 
 router.route("/edit/:id")
-    .get(getOne) //get one income category
-    .post(newCategoryValidationRules(),validate,updateOne) //update one income category
+    .get(checkAuth("admin"),getOne) //get one income category
+    .post(checkAuth("admin"),newCategoryValidationRules(),validate,updateOne) //update one income category
 
 module.exports = router

@@ -1,70 +1,75 @@
-<h1>Expenses</h1>
+<header style="padding-bottom: 0;">
+  {{>nav_bar}}
+</header>
 
-{{!-- expense section --}}
-<div>
-  <div>
-    {{#if expenses_message}}
-    <p style="color: springgreen;">{{expenses_message}}</p>
-    {{/if}}
-
-    {{#if expenses}}
-    {{>data_table data=expenses table_heading="Expense" table_for="expenses"}}
-    {{else}}
-    No expenses. Spend some.
-    {{/if}}
-  </div>
-
-  <hr />
-
+<main>
+  <h1>Expenses</h1>
+  {{!-- expense section --}}
   <div>
     <div>
-      {{#if errors}}
-      {{#each errors}}
-      {{#each this}}
-      <p style="color: firebrick;">{{this}}</p>
-      {{/each}}
-      {{/each}}
+      {{#if expenses_message}}
+      <p style="color: springgreen;">{{expenses_message}}</p>
+      {{/if}}
+
+      {{#if expenses}}
+      {{>data_table data=expenses table_heading="Expense" table_for="expenses"}}
+      {{else}}
+      No expenses. Spend some.
       {{/if}}
     </div>
 
-    <form action="/expenses" method="POST" role="form">
-      <p>
-        <label for="expenseName">Expense Name:</label><br>
-        <input type="text" name="expenseName" id="expenseName" placeholder="Expense name..." />
-      </p>
+    <hr />
 
-      {{!-- map all expense categories --}}
-      <p>
-        <label for="expenseCategory">Expense Category:</label><br>
+    <div>
+      <div>
+        {{#if errors}}
+        {{#each errors}}
+        {{#each this}}
+        <p style="color: firebrick;">{{this}}</p>
+        {{/each}}
+        {{/each}}
+        {{/if}}
+      </div>
 
-        <select name="expenseCategory" id="expenseCategory" placeholder="Expense category...">
-          <option disabled="true" selected="true">Select a category</option>
-          {{#each expense_category}}
-          <option value={{this.id}}>{{this.category}}</option>
-          {{/each}}
-        </select>
-        {{!-- <input type="text" name="expenseCategory" id="expenseCategory" placeholder="Expense category..." /> --}}
-      </p>
+      <form action="/expenses" method="POST" role="form">
+        <p>
+          <label for="expenseName">Expense Name:</label><br>
+          <input type="text" name="expenseName" id="expenseName" placeholder="Expense name..." />
+        </p>
 
-      <p>
-        <label for="expenseAmount">Expense Amount:</label><br>
-        <input type="number" step="0.0001" name="expenseAmount" id="expenseAmount" placeholder="Expense amount..." />
-      </p>
+        {{!-- map all expense categories --}}
+        <p>
+          <label for="expenseCategory">Expense Category:</label><br>
 
-      <p>
-        <label for="expenseDescription">Expense Description:</label><br>
-        <input type="text" name="expenseDescription" id="expenseDescription" placeholder="Expense description..." />
-      </p>
+          <select name="expenseCategory" id="expenseCategory" placeholder="Expense category...">
+            <option disabled="true" selected="true">Select a category</option>
+            {{#each expense_category}}
+            <option value={{this.id}}>{{this.category}}</option>
+            {{/each}}
+          </select>
+          {{!-- <input type="text" name="expenseCategory" id="expenseCategory" placeholder="Expense category..." /> --}}
+        </p>
+
+        <p>
+          <label for="expenseAmount">Expense Amount:</label><br>
+          <input type="number" step="0.0001" name="expenseAmount" id="expenseAmount" placeholder="Expense amount..." />
+        </p>
+
+        <p>
+          <label for="expenseDescription">Expense Description:</label><br>
+          <input type="text" name="expenseDescription" id="expenseDescription" placeholder="Expense description..." />
+        </p>
 
 
-      <p>
-        <label for="expenseDate">Expense Date:</label><br>
-        <input type="date" name="expenseDate" id="expenseDate" placeholder="Expense date..." />
-      </p>
+        <p>
+          <label for="expenseDate">Expense Date:</label><br>
+          <input type="date" name="expenseDate" id="expenseDate" placeholder="Expense date..." />
+        </p>
 
-      <button type="submit">
-        Add expense
-      </button>
-    </form>
+        <button type="submit">
+          Add expense
+        </button>
+      </form>
+    </div>
   </div>
-</div>
+</main>

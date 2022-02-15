@@ -18,7 +18,6 @@ const validateToken = async (token) => {
   }
 }
 
-
 module.exports = {
   generateToken, validateToken
 }

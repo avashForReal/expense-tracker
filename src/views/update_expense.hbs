@@ -1,61 +1,68 @@
-{{#if expense}}
-<p>Update expense</p>
+<header style="padding-bottom: 0;">
+    {{>nav_bar}}
+</header>
 
-<div>
+<main>
+    {{#if expense}}
+    <p>Update expense</p>
+
     <div>
-        {{#if errors}}
-        {{#each errors}}
-        {{#each this}}
-        <p style="color: firebrick;">{{this}}</p>
-        {{/each}}
-        {{/each}}
-        {{/if}}
+        <div>
+            {{#if errors}}
+            {{#each errors}}
+            {{#each this}}
+            <p style="color: firebrick;">{{this}}</p>
+            {{/each}}
+            {{/each}}
+            {{/if}}
+        </div>
+
+        <form action="/expenses/edit/{{expense.id}}" method="POST" role="form">
+            <p>
+                <label for="expenseName">Expense Name:</label><br>
+                <input type="text" value="{{expense.expenseName}}" name="expenseName" id="expenseName"
+                    placeholder="expense name..." />
+            </p>
+
+            {{!-- map all expense categories --}}
+            <p>
+                <label for="expenseCategory">expense Category:</label><br>
+                <select name="expenseCategory" id="expenseCategory" placeholder="expense category...">
+                    <option disabled="true" selected="true">Select a category</option>
+                    {{#each expense_category}}
+                    <option value={{this.id}}>{{this.category}}</option>
+                    {{/each}}
+                </select>
+                {{!-- <input type="text" name="expenseCategory" id="expenseCategory"
+                    placeholder="expense category..." /> --}}
+            </p>
+
+            <p>
+                <label for="expenseAmount">expense Amount:</label><br>
+                <input type="number" value="{{expense.expenseAmount}}" step="0.0001" name="expenseAmount"
+                    id="expenseAmount" placeholder="expense amount..." />
+            </p>
+
+            <p>
+                <label for="expenseDescription">expense Description:</label><br>
+                <input type="text" value="{{expense.expenseDescription}}" name="expenseDescription"
+                    id="expenseDescription" placeholder="expense description..." />
+            </p>
+
+
+            <p>
+                <label for="expenseDate">expense Date:</label><br>
+                <input type="date" value="{{expense.expenseDate}}" name="expenseDate" id="expenseDate"
+                    placeholder="expense date..." />
+            </p>
+
+            <button type="submit">
+                Update expense
+            </button>
+        </form>
     </div>
 
-    <form action="/expenses/edit/{{expense.id}}" method="POST" role="form">
-        <p>
-            <label for="expenseName">Expense Name:</label><br>
-            <input type="text" value="{{expense.expenseName}}" name="expenseName" id="expenseName"
-                placeholder="expense name..." />
-        </p>
-
-        {{!-- map all expense categories --}}
-        <p>
-            <label for="expenseCategory">expense Category:</label><br>
-            <select name="expenseCategory" id="expenseCategory" placeholder="expense category...">
-                <option disabled="true" selected="true">Select a category</option>
-                {{#each expense_category}}
-                <option value={{this.id}}>{{this.category}}</option>
-                {{/each}}
-            </select>
-            {{!-- <input type="text" name="expenseCategory" id="expenseCategory" placeholder="expense category..." /> --}}
-        </p>
-
-        <p>
-            <label for="expenseAmount">expense Amount:</label><br>
-            <input type="number" value="{{expense.expenseAmount}}" step="0.0001" name="expenseAmount" id="expenseAmount"
-                placeholder="expense amount..." />
-        </p>
-
-        <p>
-            <label for="expenseDescription">expense Description:</label><br>
-            <input type="text" value="{{expense.expenseDescription}}" name="expenseDescription" id="expenseDescription"
-                placeholder="expense description..." />
-        </p>
-
-
-        <p>
-            <label for="expenseDate">expense Date:</label><br>
-            <input type="date" value="{{expense.expenseDate}}" name="expenseDate" id="expenseDate"
-                placeholder="expense date..." />
-        </p>
-
-        <button type="submit">
-            Update expense
-        </button>
-    </form>
-</div>
-
-{{else}}
-expense not found.
-{{/if}}
+    {{else}}
+    expense not found.
+    {{/if}}
+</main>

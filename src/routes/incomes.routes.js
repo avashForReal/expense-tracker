@@ -15,15 +15,17 @@ const {
     newIncomeValidationRules
 } = require("../middlewares/validator")
 
+const {checkAuth} = require("../middlewares/auth.middlewares")
+
 router.route('/')
-    .get(index)
-    .post(newIncomeValidationRules(), validate, createOne, index) //add an income
+    .get(checkAuth("user"),index)
+    .post(checkAuth("user"),newIncomeValidationRules(), validate, createOne, index) //add an income
 
 router.route('/delete/:id')
-    .get(deleteOne)
+    .get(checkAuth("user"),deleteOne)
 
 router.route('/edit/:id')
-    .get(getOne)
-    .post(newIncomeValidationRules(), validate, updateOne)
+    .get(checkAuth("user"),getOne)
+    .post(checkAuth("user"),newIncomeValidationRules(), validate, updateOne)
 
 module.exports = router

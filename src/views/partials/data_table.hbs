@@ -3,9 +3,9 @@
     <tr>
       <th>id</th>
       <th>{{table_heading}}</th>
-      <th>Category</th>
       <th>Amount</th>
       <th>Description</th>
+      <th>Category</th>
       <th>Date</th>
     </tr>
   </thead>
@@ -17,7 +17,7 @@
       {{#if this}}
       <td>{{this}}</td>
       {{else}}
-      <td style="font-size: small;"><i>no category</i></td>
+      <td style="font-size: small;"><i>no info</i></td>
       {{/if}}
       {{/each}}
       <td><a href="/{{../table_for}}/edit/{{this.id}}" style="cursor: pointer;">edit</a></td>

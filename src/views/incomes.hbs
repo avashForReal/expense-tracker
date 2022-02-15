@@ -1,69 +1,75 @@
-<h1>Incomes</h1>
+<header style="padding-bottom: 0;">
+  {{>nav_bar}}
+</header>
 
-<div>
-  {{#if incomes_message}}
-  <p style="color: springgreen;">
-    {{incomes_message}}
-  </p>
-  {{/if}}
+<main>
+  <h1>Incomes</h1>
 
-  {{#if incomes}}
-  {{>data_table data=incomes table_heading="Income" table_for="incomes"}}
-  {{else}}
-  No incomes. Earn some.
-  {{/if}}
-</div>
-
-<hr />
-
-<div>
   <div>
-    {{#if errors}}
-    {{#each errors}}
-    {{#each this}}
-    <p style="color: firebrick;">{{this}}</p>
-    {{/each}}
-    {{/each}}
+    {{#if incomes_message}}
+    <p style="color: springgreen;">
+      {{incomes_message}}
+    </p>
+    {{/if}}
+
+    {{#if incomes}}
+    {{>data_table data=incomes table_heading="Income" table_for="incomes"}}
+    {{else}}
+    No incomes. Earn some.
     {{/if}}
   </div>
 
-  <form action="/incomes" method="POST" role="form">
-    <p>
-      <label for="incomeSource">Income Source:</label><br>
-      <input type="text" name="incomeSource" id="incomeSource" placeholder="Income name..." />
-    </p>
+  <hr />
 
-    {{!-- map all income categories --}}
-    <p>
-      <label for="incomeCategory">Income Category:</label><br>
+  <div>
+    <div>
+      {{#if errors}}
+      {{#each errors}}
+      {{#each this}}
+      <p style="color: firebrick;">{{this}}</p>
+      {{/each}}
+      {{/each}}
+      {{/if}}
+    </div>
 
-      <select name="incomeCategory" id="incomeCategory" placeholder="Income category...">
-        <option disabled="true" selected="true">Select a category</option>
-        {{#each income_category}}
-        <option value={{this.id}}>{{this.category}}</option>
-        {{/each}}
-      </select>
-      {{!-- <input type="text" name="incomeCategory" id="incomeCategory" placeholder="Income category..." /> --}}
-    </p>
+    <form action="/incomes" method="POST" role="form">
+      <p>
+        <label for="incomeSource">Income Source:</label><br>
+        <input type="text" name="incomeSource" id="incomeSource" placeholder="Income name..." />
+      </p>
 
-    <p>
-      <label for="incomeAmount">Income Amount:</label><br>
-      <input type="number" step="0.0001" name="incomeAmount" id="incomeAmount" placeholder="Income amount..." />
-    </p>
+      {{!-- map all income categories --}}
+      <p>
+        <label for="incomeCategory">Income Category:</label><br>
 
-    <p>
-      <label for="incomeDescription">Income Description:</label><br>
-      <input type="text" name="incomeDescription" id="incomeDescription" placeholder="Income description..." />
-    </p>
+        <select name="incomeCategory" id="incomeCategory" placeholder="Income category...">
+          <option disabled="true" selected="true">Select a category</option>
+          {{#each income_category}}
+          <option value={{this.id}}>{{this.category}}</option>
+          {{/each}}
+        </select>
+        {{!-- <input type="text" name="incomeCategory" id="incomeCategory" placeholder="Income category..." /> --}}
+      </p>
+
+      <p>
+        <label for="incomeAmount">Income Amount:</label><br>
+        <input type="number" step="0.0001" name="incomeAmount" id="incomeAmount" placeholder="Income amount..." />
+      </p>
+
+      <p>
+        <label for="incomeDescription">Income Description:</label><br>
+        <input type="text" name="incomeDescription" id="incomeDescription" placeholder="Income description..." />
+      </p>
 
 
-    <p>
-      <label for="incomeDate">Income Date:</label><br>
-      <input type="date" name="incomeDate" id="incomeDate" placeholder="Income date..." />
-    </p>
+      <p>
+        <label for="incomeDate">Income Date:</label><br>
+        <input type="date" name="incomeDate" id="incomeDate" placeholder="Income date..." />
+      </p>
 
-    <button type="submit">
-      Add income
-    </button>
-  </form>
-</div>
+      <button type="submit">
+        Add income
+      </button>
+    </form>
+  </div>
+</main>

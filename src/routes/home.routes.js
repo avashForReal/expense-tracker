@@ -7,8 +7,10 @@ const router = express.Router()
 //     validate
 // } = require("../middlewares/validator")
 
+const {checkAuth} = require("../middlewares/auth.middlewares")
+
 router.route('/')
-    .get(index) //get all income categories
+    .get(checkAuth("user"),index) //get all income categories
     // .post(newCategoryValidationRules(),validate,createOne) //add a income category
 
 // router.route('/:id')

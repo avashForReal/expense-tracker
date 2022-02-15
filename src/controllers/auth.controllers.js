@@ -54,10 +54,12 @@ const loginUser = async (req, res, next) => {
         const token = generateToken(payload);
         
         res.cookie('auth-token',token)
-        // if(oldUser.role === "admin"){
-        //     return res.redirect('/admin')
-        // }
-        res.redirect('/home')
+        if(oldUser.role === "admin"){
+            return res.render('admin')
+        }
+        
+        return res.redirect('/')
+
     } catch (e) {
         console.log(e)
         res.status(500).json({ error: "internal server error" })

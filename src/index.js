@@ -14,9 +14,6 @@ const expensesRoutes = require("../src/routes/expenses.routes")
 const homeRoutes = require("../src/routes/home.routes")
 const authRoutes = require("../src/routes/auth.routes")
 
-// middleware import
-const { authAdmin, authUser } = require("./middlewares/auth.middlewares")
-
 // env config
 dotenv.config();
 
@@ -44,13 +41,13 @@ const init = async () => {
         app.use('/users', authRoutes)
 
         //route for users, middleware to check
-        app.use('/home', authUser,homeRoutes)
-        app.use('/expenses', authUser,expensesRoutes)
-        app.use('/incomes', authUser,incomesRoutes)
+        app.use('/', homeRoutes)
+        app.use('/expenses', expensesRoutes)
+        app.use('/incomes', incomesRoutes)
 
         //route for admin only
-        app.use('/income-category', authAdmin, incomeCategoryRoutes)
-        app.use('/expense-category', authAdmin, expenseCategoryRoutes)    
+        app.use('/income-category', incomeCategoryRoutes)
+        app.use('/expense-category', expenseCategoryRoutes)
 
         // not found
         app.all("*", (req, res) => res.status(404).json({ message: "Route not found!" }))
