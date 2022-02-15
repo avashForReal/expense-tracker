@@ -6,7 +6,8 @@ const {
     loginIndex,
     registerIndex,
     loginUser,
-    registerUser
+    registerUser,
+    logOut
 } = require("../controllers/auth.controllers")
 
 // validation middleware
@@ -23,5 +24,8 @@ router.route('/login')
 router.route('/register')
     .get(registerIndex)
     .post(registerValidations(), validate, registerUser) //register user
+
+router.route('/logout')
+    .get(logOut)
 
 module.exports = router

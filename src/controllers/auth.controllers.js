@@ -50,14 +50,14 @@ const loginUser = async (req, res, next) => {
             })
         }
         // generate jwt token
-        const payload = { id: oldUser.id, email:oldUser.email, role:oldUser.role }
+        const payload = { id: oldUser.id, email: oldUser.email, role: oldUser.role }
         const token = generateToken(payload);
-        
-        res.cookie('auth-token',token)
-        if(oldUser.role === "admin"){
-            return res.render('admin')
+
+        res.cookie('auth-token', token)
+        if (oldUser.role === "admin") {
+            return res.redirect('/admin')
         }
-        
+
         return res.redirect('/')
 
     } catch (e) {
@@ -103,7 +103,19 @@ const registerUser = async (req, res, next) => {
         console.log(e)
         res.status(500).json({ error: "internal server error" })
     }
-
 }
 
-module.exports = { loginIndex, registerIndex, loginUser, registerUser }
+const logOut = (req,res) => {
+    try {
+        // clear the cookie
+        // res.clearCookie("auth-token");
+        res.cookie('auth-token', '', {expires: new Date(0)});
+        // redirect to login
+        return res.redirect("/users/login");
+    } catch (e) {
+        console.log(e)
+        res.status(500).json({ error: "internal server error" })
+    }
+}
+
+module.exports = { loginIndex, registerIndex, loginUser, registerUser, logOut }

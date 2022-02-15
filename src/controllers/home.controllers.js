@@ -1,5 +1,5 @@
-const incomesController = require("../controllers/incomes.controller")
-const expensesController = require("../controllers/expenses.controller")
+const incomesController = require("./incomes.controller")
+const expensesController = require("./expenses.controller")
 const { calcExpense, calcIncome } = require("../utils/calcTotal")
 
 // home index
@@ -16,7 +16,8 @@ const index = async (req, res) => {
         return res.render('home', {
             availableBalance,
             totalIncomeAmount,
-            totalExpenseAmount
+            totalExpenseAmount,
+            
         })
     } catch (e) {
         console.log(e)

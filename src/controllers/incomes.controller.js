@@ -144,8 +144,12 @@ const getOne = async (req, res) => {
 const deleteOne = async (req, res) => {
     try {
         const { id } = req.params
+        const userId = req.user.id
         await Incomes.destroy({
-            where: { id }
+            where: { 
+                id,
+                user_id: userId
+            }
         })
 
         return res.redirect('/incomes')

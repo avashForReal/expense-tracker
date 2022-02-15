@@ -13,6 +13,7 @@ const incomesRoutes = require("../src/routes/incomes.routes")
 const expensesRoutes = require("../src/routes/expenses.routes")
 const homeRoutes = require("../src/routes/home.routes")
 const authRoutes = require("../src/routes/auth.routes")
+const adminRoutes = require("../src/routes/admin.routes")
 
 // env config
 dotenv.config();
@@ -46,6 +47,7 @@ const init = async () => {
         app.use('/incomes', incomesRoutes)
 
         //route for admin only
+        app.use('/admin', adminRoutes)
         app.use('/income-category', incomeCategoryRoutes)
         app.use('/expense-category', expenseCategoryRoutes)
 
