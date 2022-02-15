@@ -1,0 +1,47 @@
+<h1>Register</h1>
+
+<div>
+    <div>
+        {{#if errors}}
+        {{#each errors}}
+        {{#each this}}
+        <p style="color: firebrick;">{{this}}</p>
+        {{/each}}
+        {{/each}}
+        {{/if}}
+    </div>
+
+    <div>
+        {{#if email_message}}
+        <p style="color: firebrick;">{{email_message}}</p>
+        {{/if}}
+    </div>
+
+     <div>
+        {{#if success}}
+        <p style="color: springgreen;">{{success}}</p>
+        <a href="/users/login">Go to login</a>
+        {{/if}}
+    </div>
+
+    <form action="/users/register" method="POST" role="form">
+        <p>
+            <label for="username">Name:</label><br>
+            <input type="text" value="{{body.username}}" name="username" id="username" placeholder="Enter your name" />
+        </p>
+
+        <p>
+            <label for="email">Email:</label><br>
+            <input type="email" value="{{body.email}}" name="email" id="email" placeholder="Enter your email" />
+        </p>
+
+        <p>
+            <label for="password">Password:</label><br>
+            <input type="password" name="password" id="password" placeholder="Enter your password" />
+        </p>
+
+        <button type="submit">
+            Register
+        </button>
+    </form>
+</div>

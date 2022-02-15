@@ -4,10 +4,16 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Incomes extends Model {
-    static associate({ IncomeCategory }) {
+    static associate({ IncomeCategory, Users }) {
       // define association here
       this.belongsTo(IncomeCategory, {
         foreignKey: 'incomeCategory',
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE'
+      })
+
+      this.belongsTo(Users, {
+        foreignKey: 'user_id',
         onDelete: 'SET NULL',
         onUpdate: 'CASCADE'
       })
@@ -33,6 +39,10 @@ module.exports = (sequelize, DataTypes) => {
     incomeDate: {
       type: DataTypes.DATE,
       allowNull: false
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,

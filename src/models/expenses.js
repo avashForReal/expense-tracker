@@ -4,10 +4,16 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Expenses extends Model {
-    static associate({ ExpenseCategory }) {
+    static associate({ ExpenseCategory, Users }) {
       // define association here
       this.belongsTo(ExpenseCategory, {
         foreignKey: 'expenseCategory',
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE'
+      })
+
+      this.belongsTo(Users, {
+        foreignKey: 'user_id',
         onDelete: 'SET NULL',
         onUpdate: 'CASCADE'
       })
@@ -20,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     expenseCategory: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     },
     expenseAmount: {
       type: DataTypes.INTEGER,
@@ -33,6 +39,10 @@ module.exports = (sequelize, DataTypes) => {
     expenseDate: {
       type: DataTypes.DATE,
       allowNull: false
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,
