@@ -1,14 +1,17 @@
 const moment = require("moment")
+const Handlebars = require("handlebars")
 
-const selectOption = (selected, options) => {
-    return options.fn(this).replace(
-        new RegExp(' value=\"' + selected + '\"'),
-        '$& selected="selected"');
+const selectOption = (category,option) => {
+    // if(category===option.category){
+    //     return <option value="{{option.id}}">{{option.category}}</option>
+    // }else{
+    //     return <option value="{{option.id}}" selected="selected">{{option.category}}</option>
+    // }
+    const selectedProperty = category == option.category ? 'selected="selected"' : '';
+    return new Handlebars.SafeString('<option value="' + option.id + '"' +  selectedProperty + '>' + option.category + "</option>");
 }
 
 const formatDate = (date, format) => {
-    console.log(date)
-    console.log(format)
     return moment(date).format(format);
 }
 
