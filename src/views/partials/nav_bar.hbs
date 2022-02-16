@@ -1,7 +1,13 @@
 <nav>
+  {{#if user}}
   <a href="/">Home</a>
   <a href="/incomes">Manage Income</a>
   <a href="/expenses">Manage Expense</a>
+  {{/if}}
+  {{#if admin}}
+  <a href="/admin">Home</a>
   <a href="/income-category">Manage Income Category</a>
   <a href="/expense-category">Manage Expense Category</a>
+  {{/if}}
+  <a href="/users/logout">log out</a>
 </nav>

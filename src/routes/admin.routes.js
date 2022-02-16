@@ -1,5 +1,5 @@
 const express = require("express")
-const { index } = require("../controllers/home.controllers")
+const { index } = require("../controllers/admin.controllers")
 const router = express.Router()
 
 // const {
@@ -10,7 +10,7 @@ const router = express.Router()
 const {checkAuth} = require("../middlewares/auth.middlewares")
 
 router.route('/')
-    .get(checkAuth("user"),index) //get all income categories
+    .get(checkAuth("admin"),index) //get all income categories
     // .post(newCategoryValidationRules(),validate,createOne) //add a income category
 
 // router.route('/:id')

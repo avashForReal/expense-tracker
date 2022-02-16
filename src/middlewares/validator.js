@@ -11,7 +11,6 @@ const newCategoryValidationRules = () => {
 }
 
 const newExpenseValidationRules = (req, res, next) => {
-
     return [
         check('expenseName')
             .not()
@@ -26,7 +25,7 @@ const newExpenseValidationRules = (req, res, next) => {
         check('expenseAmount')
             .not()
             .isEmpty()
-            .isFloat({ min: 0})
+            .isFloat({ min: 0 })
             .trim()
             .withMessage('Expense amount must be atleast 0 or more'),
         check('expenseDescription')
@@ -43,7 +42,6 @@ const newExpenseValidationRules = (req, res, next) => {
 }
 
 const newIncomeValidationRules = (req) => {
-
     return [
         check('incomeSource')
             .not()
@@ -58,7 +56,7 @@ const newIncomeValidationRules = (req) => {
         check('incomeAmount')
             .not()
             .isEmpty()
-            .isFloat({ min: 0})
+            .isFloat({ min: 0 })
             .trim()
             .withMessage('income amount must be atleast 0 or more'),
         check('incomeDescription')
@@ -71,6 +69,40 @@ const newIncomeValidationRules = (req) => {
             .isEmpty()
             .trim()
             .withMessage('Income date is required'),
+    ]
+}
+
+
+const loginValidations = (req) => {
+    return [
+        check('email')
+            .isEmail()
+            .trim()
+            .withMessage('Email is required'),
+        check('password')
+            .not()
+            .isEmpty()
+            .trim()
+            .withMessage('Password is required'),
+    ]
+}
+
+const registerValidations = (req) => {
+    return [
+        check('username')
+            .not()
+            .isEmpty()
+            .trim()
+            .withMessage('Name is required'),
+        check('email')
+            .isEmail()
+            .trim()
+            .withMessage('Email is required'),
+        check('password')
+            .not()
+            .isEmpty()
+            .trim()
+            .withMessage('Password is required'),
     ]
 }
 
@@ -105,5 +137,7 @@ module.exports = {
     newCategoryValidationRules,
     newExpenseValidationRules,
     newIncomeValidationRules,
+    loginValidations,
+    registerValidations,
     validate
 }

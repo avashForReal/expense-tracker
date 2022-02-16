@@ -1,38 +1,44 @@
-<h1>Income Categories</h1>
+<header style="padding-bottom: 0;">
+    {{>nav_bar admin="true"}}
+</header>
 
-{{#if message}}
-<p style="color: springgreen;">
-    {{message}}
-</p>
-{{/if}}
+<main>
+    <h1>Income Categories</h1>
+
+    {{#if message}}
+    <p style="color: springgreen;">
+        {{message}}
+    </p>
+    {{/if}}
 
 
-{{#if income_category}}
-<p>income categories:</p>
+    {{#if income_category}}
+    <p>income categories:</p>
 
-{{!-- call partial with data --}}
-{{!-- like react props --}}
+    {{!-- call partial with data --}}
+    {{!-- like react props --}}
 
-{{>list list_data=income_category list_for="income-category"}}
+    {{>list list_data=income_category list_for="income-category"}}
 
-{{else}}
-<p>No categories found, please add a category!</p>
-{{/if}}
+    {{else}}
+    <p>No categories found, please add a category!</p>
+    {{/if}}
 
-<hr />
+    <hr />
 
-<form action="/income-category" method="POST" role="form">
-    <div>
-        <label for="category">Income Category:</label><br>
-        <input type="text" name="category" id="category" placeholder="Category..." />
-        {{#if errors}}
-        <p style="color: firebrick;">
-            {{errors.[0].category}}
-        </p>
-        {{/if}}
-    </div>
+    <form action="/income-category" method="POST" role="form">
+        <div>
+            <label for="category">Income Category:</label><br>
+            <input type="text" name="category" id="category" placeholder="Category..." />
+            {{#if errors}}
+            <p style="color: firebrick;">
+                {{errors.[0].category}}
+            </p>
+            {{/if}}
+        </div>
 
-    <button type="submit">
-        Add income category
-    </button>
-</form>
+        <button type="submit">
+            Add income category
+        </button>
+    </form>
+</main>

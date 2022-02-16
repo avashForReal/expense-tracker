@@ -16,15 +16,17 @@ const {
     validate
 } = require("../middlewares/validator")
 
+const {checkAuth} = require("../middlewares/auth.middlewares")
+
 router.route('/')
-    .get(index) //get all expense categories
-    .post(newCategoryValidationRules(), validate, createOne, index) //add a expense category
+    .get(checkAuth("admin"),index) //get all expense categories
+    .post(checkAuth("admin"),newCategoryValidationRules(), validate, createOne, index) //add a expense category
 
 router.route('/delete/:id')
-    .get(deleteOne) // delete a expense category
+    .get(checkAuth("admin"),deleteOne) // delete a expense category
 
 router.route('/edit/:id')
-    .get(getOne) //get one expense
-    .post(newCategoryValidationRules(), validate, updateOne) //update one expense
+    .get(checkAuth("admin"),getOne) //get one expense
+    .post(checkAuth("admin"),newCategoryValidationRules(), validate, updateOne) //update one expense
 
 module.exports = router

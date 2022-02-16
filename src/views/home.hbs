@@ -1,19 +1,25 @@
-<h1>Expense Tracker</h1>
+<header style="padding-bottom: 0;">
+    {{>nav_bar user="true"}}
+</header>
 
-{{#if totalIncomeAmount}}
-<p>Total income amount: <span style="color: springgreen;">{{totalIncomeAmount}}</span></p>
-{{else}}
-<p>No incomes</p>
-{{/if}}
+<main>
+    <h1>Expense Tracker</h1>
 
-{{#if totalExpenseAmount}}
-<p>Total expense amount: <span style="color: firebrick;">{{totalExpenseAmount}}</span></p>
-{{else}}
-<p>No expense</p>
-{{/if}}
+    {{#if totalIncomeAmount}}
+    <p>Total income amount: <span style="color: springgreen;">{{totalIncomeAmount}}</span></p>
+    {{else}}
+    <p>No incomes</p>
+    {{/if}}
 
-{{#if availableBalance}}
-<p>Available balance: {{availableBalance}}</p>
-{{else}}
-<p>No balance</p>
-{{/if}}
+    {{#if totalExpenseAmount}}
+    <p>Total expense amount: <span style="color: firebrick;">{{totalExpenseAmount}}</span></p>
+    {{else}}
+    <p>No expense</p>
+    {{/if}}
+
+    {{#if availableBalance}}
+    <p>Available balance: {{availableBalance}}</p>
+    {{else}}
+    <p>No balance</p>
+    {{/if}}
+</main>

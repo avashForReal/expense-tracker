@@ -1,5 +1,6 @@
-const { Incomes, IncomeCategory } = require("../models")
+const { Incomes, IncomeCategory, Users } = require("../models")
 const incomeCategoryController = require("./income_category.controllers")
+const _ = require("lodash")
 const moment = require("moment")
 
 const index = async (req, res) => {
@@ -7,20 +8,19 @@ const index = async (req, res) => {
         // get information from previous middlewares
         const incomes_message = req.incomes_message
         const errors = req.errors
+        const userId = req.user.id
 
         // get all required data
-        const allIncomes = await getAll()
+        const allIncomes = await getAll(userId)
         const income_category = await incomeCategoryController.getAll()
 
         const newIncomesArray = []
-        allIncomes.map(data => newIncomesArray.push({
-            id: data.id,
-            incomeSource: data.incomeSource,
-            incomeCategory: data['IncomeCategory.category'],
-            incomeAmount: data.incomeAmount,
-            incomeDescription: data.incomeDescription,
-            incomeDate: moment(data.incomeDate).format('MMMM Do YYYY')
-        }))
+        allIncomes.map(data => {
+            const newdata = _.pick(data, ['id', 'incomeSource', 'incomeAmount', 'incomeDescription'])
+            newdata.incomeCategory = data['IncomeCategory.category']
+            newdata.expenseDate = moment(data.incomeDate).format('MMMM Do YYYY')
+            return newIncomesArray.push(newdata)
+        })
 
         return res.render('incomes', {
             errors,
@@ -37,18 +37,24 @@ const index = async (req, res) => {
 
 
 // get all Incomes
-const getAll = async (req, res) => {
+const getAll = async (userId) => {
     try {
         return await Incomes.findAll({
-            include: {
+            include: [{
                 model: IncomeCategory,
                 attributes: ["category"]
             },
+            {
+                model: Users,
+                where: {
+                    id: userId
+                }
+            }],
             raw: true
         })
     } catch (e) {
         console.log(e)
-        res.status(500).json({ error: "internal server error" })
+        throw new Error("An error occured")
     }
 }
 
@@ -60,7 +66,7 @@ const createOne = async (req, res, next) => {
         if (errors) {
             return next()
         }
-
+        const userId = req.user.id
         const {
             incomeSource,
             incomeCategory,
@@ -75,7 +81,8 @@ const createOne = async (req, res, next) => {
             incomeCategory,
             incomeAmount,
             incomeDescription,
-            incomeDate
+            incomeDate,
+            user_id: userId
         }
 
         //create new record
@@ -94,13 +101,20 @@ const createOne = async (req, res, next) => {
 // get one by id
 const getOne = async (req, res) => {
     try {
+        const userId = req.user.id
         const { id } = req.params
         const income = await Incomes.findOne({
             where: { id },
-            include: {
+            include: [{
                 model: IncomeCategory,
                 attributes: ["category"]
             },
+            {
+                model: Users,
+                where: {
+                    id: userId
+                }
+            }],
             raw: true
         })
 
@@ -130,8 +144,12 @@ const getOne = async (req, res) => {
 const deleteOne = async (req, res) => {
     try {
         const { id } = req.params
+        const userId = req.user.id
         await Incomes.destroy({
-            where: { id }
+            where: { 
+                id,
+                user_id: userId
+            }
         })
 
         return res.redirect('/incomes')
@@ -144,6 +162,7 @@ const deleteOne = async (req, res) => {
 // update one by id
 const updateOne = async (req, res) => {
     try {
+        const userId = req.user.id
         const { id } = req.params
         const errors = req.errors
         const {
@@ -153,7 +172,7 @@ const updateOne = async (req, res) => {
             incomeDescription,
             incomeDate
         } = req.body
-
+        // req id added to send to view for dynamic post route
         const reqObject = {
             id,
             incomeSource,
@@ -175,7 +194,10 @@ const updateOne = async (req, res) => {
         delete reqObject.id;
 
         await Incomes.update(reqObject, {
-            where: {id}
+            where: { 
+                id,
+                user_id: userId
+            }
         })
 
         res.redirect('/incomes')

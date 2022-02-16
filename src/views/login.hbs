@@ -1,0 +1,36 @@
+<h1>Login</h1>
+
+<div>
+    <div>
+        {{#if errors}}
+        {{#each errors}}
+        {{#each this}}
+        <p style="color: firebrick;">{{this}}</p>
+        {{/each}}
+        {{/each}}
+        {{/if}}
+    </div>
+
+    <div>
+        {{#if user_message}}
+        <p style="color: firebrick;">{{user_message}}</p>
+        {{/if}}
+    </div>
+
+    <form action="/users/login" method="POST" role="form">
+        <p>
+            <label for="email">Email:</label><br>
+            <input type="email" value="{{body.email}}" name="email" id="email" placeholder="Enter your email" />
+        </p>
+
+        <p>
+            <label for="password">Password:</label><br>
+            <input type="password" name="password" id="password" placeholder="Enter your password" />
+        </p>
+
+        <button type="submit">
+            Login
+        </button>
+    </form>
+    <a href="/users/register">don't have an account? register</a>
+</div>
