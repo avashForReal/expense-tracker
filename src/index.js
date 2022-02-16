@@ -14,6 +14,7 @@ const expensesRoutes = require("../src/routes/expenses.routes")
 const homeRoutes = require("../src/routes/home.routes")
 const authRoutes = require("../src/routes/auth.routes")
 const adminRoutes = require("../src/routes/admin.routes")
+const { selectOption, formatDate } = require("./utils/handlebars")
 
 // env config
 dotenv.config();
@@ -27,7 +28,7 @@ const init = async () => {
         const app = express()
 
         // view engine setup
-        app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }));
+        app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs', helpers: { selectOption, formatDate } }));
         // app.set('views', './views');
         app.set('views', path.join(__dirname, 'views'));
 

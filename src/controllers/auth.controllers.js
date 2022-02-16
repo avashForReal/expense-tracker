@@ -1,6 +1,6 @@
 const { Users } = require("../models")
 const { hashPassword, comparePassword } = require("../utils/bcrypt")
-const { generateToken, validateToken } = require("../utils/jwt")
+const { generateToken } = require("../utils/jwt")
 const _ = require('lodash')
 
 const loginIndex = async (req, res, next) => {
@@ -53,7 +53,10 @@ const loginUser = async (req, res, next) => {
         const payload = { id: oldUser.id, email: oldUser.email, role: oldUser.role }
         const token = generateToken(payload);
 
-        res.cookie('auth-token', token)
+        res.cookie('auth-token', token, {
+            httpOnly: true,
+            maxAge: 1800000
+        })
         if (oldUser.role === "admin") {
             return res.redirect('/admin')
         }

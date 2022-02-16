@@ -28,10 +28,11 @@
             <p>
                 <label for="incomeCategory">Income Category:</label><br>
                 <select name="incomeCategory" id="incomeCategory" placeholder="Income category...">
-                    <option disabled="true" selected="true">Select a category</option>
+                    {{!-- {{#selectOption income.incomeCategory}} --}}
                     {{#each income_category}}
                     <option value={{this.id}}>{{this.category}}</option>
                     {{/each}}
+                    {{!-- {{/selectOption}} --}}
                 </select>
                 {{!-- <input type="text" name="incomeCategory" id="incomeCategory" placeholder="Income category..." />
                 --}}
@@ -52,7 +53,8 @@
 
             <p>
                 <label for="incomeDate">Income Date:</label><br>
-                <input type="date" value="{{income.incomeDate}}" name="incomeDate" id="incomeDate"
+                <input type="date" value="{{formatDate income.incomeDate "YYYY-MM-DD"}}" name="incomeDate" id="incomeDate"
+                {{!-- <input type="date" value="2017-5-15" name="incomeDate" id="incomeDate" --}}
                     placeholder="Income date..." />
             </p>
 
