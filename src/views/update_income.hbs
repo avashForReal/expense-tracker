@@ -28,14 +28,10 @@
             <p>
                 <label for="incomeCategory">Income Category:</label><br>
                 <select name="incomeCategory" id="incomeCategory" placeholder="Income category...">
-                    {{!-- {{#selectOption income.incomeCategory}} --}}
                     {{#each income_category}}
-                    <option value={{this.id}}>{{this.category}}</option>
+                        {{selectOption ../income.incomeCategory this}}
                     {{/each}}
-                    {{!-- {{/selectOption}} --}}
                 </select>
-                {{!-- <input type="text" name="incomeCategory" id="incomeCategory" placeholder="Income category..." />
-                --}}
             </p>
 
             <p>

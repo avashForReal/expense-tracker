@@ -30,11 +30,9 @@
                 <select name="expenseCategory" id="expenseCategory" placeholder="expense category...">
                     <option disabled="true" selected="true">Select a category</option>
                     {{#each expense_category}}
-                    <option value={{this.id}}>{{this.category}}</option>
+                        {{selectOption ../expense.expenseCategory this}}
                     {{/each}}
                 </select>
-                {{!-- <input type="text" name="expenseCategory" id="expenseCategory"
-                    placeholder="expense category..." /> --}}
             </p>
 
             <p>
